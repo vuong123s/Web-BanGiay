@@ -69,7 +69,7 @@ export default function SidebarNav() {
   return (
     <>
       {/* Right Sidebar - VerticalBorder */}
-      <div className="fixed right-0 top-0 h-screen w-[100px] z-20 flex flex-col items-center justify-between" style={{ borderLeft: "0.8px solid #e4e4e4" }}>
+      <div className="fixed right-0 top-0 z-20 hidden h-screen w-[100px] flex-col items-center justify-between bg-white/85 backdrop-blur-xl lg:flex" style={{ borderLeft: "0.8px solid #e4e4e4" }}>
 
         {/* Top section: Cart + Wishlist + User */}
         <div className="flex flex-col items-center pt-[20px]">
@@ -127,7 +127,7 @@ export default function SidebarNav() {
       {/* Scroll to Top Button - Bottom right, near navbar */}
       <button
         onClick={scrollToTop}
-        className="fixed bottom-[30px] right-[120px] z-30 bg-white rounded-full w-[56px] h-[56px] flex items-center justify-center cursor-pointer border-none"
+        className="fixed bottom-[30px] right-[120px] z-30 hidden h-[56px] w-[56px] cursor-pointer items-center justify-center rounded-full border-none bg-white lg:flex"
         style={{
           boxShadow: "inset 0px 0px 0px 2px rgba(34,34,34,0.2)",
         }}

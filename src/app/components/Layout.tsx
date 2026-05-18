@@ -19,10 +19,7 @@ export default function Layout({ children }: LayoutProps) {
     <div className="min-h-screen bg-white">
       {!isHome && <Navigation />}
       {isHome && <SidebarNav />}
-      <main
-        className={isHome ? undefined : "non-home-page"}
-        style={{ marginRight: isHome ? "100px" : "0" }}
-      >
+      <main className={isHome ? "home-shell" : "non-home-page"}>
         {children}
       </main>
       <CartSidebar isOpen={isCartOpen} onClose={closeCart} />

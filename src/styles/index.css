@@ -2,6 +2,64 @@
 @import './tailwind.css';
 @import './theme.css';
 
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: "Jost", Arial, sans-serif;
+}
+
 .non-home-page [data-name="Header"] {
 	display: none;
+}
+
+.home-shell {
+	margin-right: 100px;
+	overflow-x: clip;
+}
+
+.mate-hero {
+	min-height: min(720px, calc(100svh - 132px));
+}
+
+.hero-shoe {
+	animation: hero-float 7s ease-in-out infinite;
+}
+
+.brand-track {
+	animation: brand-scroll 24s linear infinite;
+}
+
+.brand-marquee:hover .brand-track {
+	animation-play-state: paused;
+}
+
+@keyframes hero-float {
+	0%,
+	100% {
+		transform: translate(-50%, -50%) rotate(-5deg);
+	}
+	50% {
+		transform: translate(-50%, calc(-50% - 18px)) rotate(2deg);
+	}
+}
+
+@keyframes brand-scroll {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+@media (max-width: 1023px) {
+	.home-shell {
+		margin-right: 0;
+	}
+
+	.mate-hero {
+		min-height: auto;
+	}
 }

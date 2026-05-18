@@ -6,7 +6,8 @@ const navItems = [
   { label: "Home", to: "/", match: "/" },
   { label: "Shop", to: "/products", match: "/products" },
   { label: "Product", to: "/product/1", match: "/product" },
-  { label: "Blog", to: "/info", match: "/info" },
+  { label: "About", to: "/about-us", match: "/about-us" },
+  { label: "Contact", to: "/contact", match: "/contact" },
 ];
 
 export default function Navigation() {
