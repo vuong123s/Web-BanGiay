@@ -292,7 +292,7 @@ function ProductImage271Jpg() {
 
 function Link() {
   return (
-    <div className="content-stretch flex items-start justify-center overflow-clip relative shrink-0 w-full" data-name="Link">
+    <div className="content-stretch flex h-full items-start justify-center overflow-clip relative shrink-0 w-full" data-name="Link">
       <ProductImage5 />
       <ProductImage271Jpg />
     </div>

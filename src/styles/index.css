@@ -10,6 +10,10 @@ body {
 	font-family: "Jost", Arial, sans-serif;
 }
 
+.content-stretch {
+	align-content: stretch;
+}
+
 .non-home-page [data-name="Header"] {
 	display: none;
 }
