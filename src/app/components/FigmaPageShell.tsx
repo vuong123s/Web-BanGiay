@@ -23,6 +23,7 @@ type FigmaAction =
   | "home"
   | "shop"
   | "product"
+  | "category"
   | "about"
   | "contact"
   | "cart"
@@ -31,11 +32,26 @@ type FigmaAction =
   | "register"
   | "search"
   | "add-cart"
+  | "buy-now"
   | "checkout"
   | "place-order"
   | "coupon"
+  | "compare"
+  | "question"
+  | "share"
+  | "option"
+  | "filter-toggle"
+  | "tab"
+  | "contact-submit"
+  | "newsletter"
   | "load-more"
   | "wishlist";
+
+type ActionPanel = {
+  body: string;
+  mode: "compare" | "question";
+  title: string;
+};
 
 function normalizeText(value: string) {
   return value
@@ -55,11 +71,17 @@ function findActionFromText(text: string): FigmaAction | null {
   if (text.includes("PLACE ORDER")) return "place-order";
   if (text.includes("PROCEED TO CHECKOUT") || text === "CHECKOUT") return "checkout";
   if (text.includes("ADD TO CART")) return "add-cart";
+  if (text.includes("BUY IT NOW")) return "buy-now";
   if (text.includes("APPLY COUPON") || text.includes("UPDATE CART")) return "coupon";
+  if (text.includes("COMPARE")) return "compare";
+  if (text.includes("ASK A QUESTION")) return "question";
+  if (text.includes("SOCIAL SHARE") || text === "SHARE") return "share";
+  if (text === "DESCRIPTION" || text === "ADDITIONAL INFORMATION" || text === "REVIEWS") return "tab";
+  if (text.includes("SUBMIT NOW") || text === "SUBMIT") return "contact-submit";
+  if (text.includes("SUBSCRIBE")) return "newsletter";
   if (text.includes("LOAD MORE")) return "load-more";
   if (text.includes("WISHLIST")) return "wishlist";
   if (text.includes("VIEW ALL PRODUCT") || text.includes("CONTINUE SHOPPING")) return "shop";
-  if (text.includes("BUY IT NOW")) return "checkout";
   if (text.includes("SHOP NOW") || text.includes("BUY NOW") || text.includes("SHOP WOMEN") || text.includes("SHOP MEN")) return "product";
   if (text === "HOME") return "home";
   if (text === "SHOP") return "shop";
@@ -73,6 +95,25 @@ function findActionFromText(text: string): FigmaAction | null {
   if (text === "CART") return "cart";
 
   return null;
+}
+
+function isCategoryLabel(text: string) {
+  return [
+    "WOMEN",
+    "MEN",
+    "KIDS",
+    "KID",
+    "LIFESTYLE",
+    "RUNNING",
+    "TRAINING",
+    "SNEAKERS",
+    "FASHION",
+    "SPORTS",
+  ].includes(text);
+}
+
+function isSizeLabel(text: string) {
+  return /^(3[5-9]|4[0-9]|5[0-2])$/.test(text);
 }
 
 function nearestInteractiveElement(start: HTMLElement, root: HTMLElement) {
@@ -117,19 +158,84 @@ function actionFromHeaderIcon(event: ReactMouseEvent<HTMLDivElement>, root: HTML
 function markAction(element: HTMLElement, action: FigmaAction, productId?: number) {
   element.dataset.figmaAction = action;
   if (productId) element.dataset.productId = String(productId);
-  element.setAttribute("role", action === "search" ? "button" : "link");
+  element.setAttribute(
+    "role",
+    [
+      "add-cart",
+      "buy-now",
+      "compare",
+      "contact-submit",
+      "coupon",
+      "filter-toggle",
+      "load-more",
+      "newsletter",
+      "option",
+      "place-order",
+      "question",
+      "search",
+      "share",
+      "tab",
+      "wishlist",
+    ].includes(action)
+      ? "button"
+      : "link",
+  );
   element.tabIndex = 0;
+}
+
+function markOption(element: HTMLElement, optionGroup: string, option: string) {
+  markAction(element, "option");
+  element.dataset.figmaOptionGroup = optionGroup;
+  element.dataset.figmaOption = option;
+}
+
+function findOptionTarget(start: HTMLElement, root: HTMLElement) {
+  let element: HTMLElement | null = start;
+  let depth = 0;
+
+  while (element && element !== root && depth < 5) {
+    const className = String(element.className);
+    const name = element.dataset.name ?? "";
+    if (name.includes("Container") || className.includes("border") || className.includes("rounded")) {
+      return element;
+    }
+
+    element = element.parentElement;
+    depth += 1;
+  }
+
+  return nearestInteractiveElement(start, root);
 }
 
 function hydrateInteractiveTargets(root: HTMLElement) {
   const textNodes = root.querySelectorAll<HTMLElement>("p, span");
 
   textNodes.forEach(textNode => {
-    const action = findActionFromText(getElementText(textNode));
+    const text = getElementText(textNode);
+    const action = findActionFromText(text);
+
+    if (isSizeLabel(text)) {
+      markOption(findOptionTarget(textNode, root), "Size", text);
+      return;
+    }
+
+    if (isCategoryLabel(text)) {
+      const target = nearestInteractiveElement(textNode, root);
+      if (!target.dataset.figmaAction) {
+        markAction(target, "category");
+        target.dataset.figmaOption = text;
+      }
+      return;
+    }
+
     if (!action) return;
 
     const target = nearestInteractiveElement(textNode, root);
     markAction(target, action);
+    if (action === "tab") {
+      target.dataset.figmaOptionGroup = "Product tab";
+      target.dataset.figmaOption = text;
+    }
   });
 
   root.querySelectorAll<HTMLElement>('[data-name="logo"], [data-name="Logo"]').forEach(element => {
@@ -149,6 +255,19 @@ function hydrateInteractiveTargets(root: HTMLElement) {
   productCards.forEach((card, index) => {
     const product = products[index % products.length] ?? products[0];
     markAction(card, "product", product.id);
+  });
+}
+
+function hydrateToggleTargets(root: HTMLElement) {
+  root.querySelectorAll<HTMLElement>('[data-name="Input"]').forEach(target => {
+    if (target.querySelector("input, textarea")) return;
+
+    const rect = target.getBoundingClientRect();
+    if (rect.width > 34 || rect.height > 34) return;
+
+    markAction(target, "filter-toggle");
+    target.dataset.figmaOptionGroup = "Filter";
+    target.dataset.figmaOption = getElementText(target.parentElement ?? target) || "Filter";
   });
 }
 
@@ -247,6 +366,7 @@ export default function FigmaPageShell({ children, designWidth = 1421, page }: F
   const stageRef = useRef<HTMLDivElement>(null);
   const [stageHeight, setStageHeight] = useState<number | undefined>();
   const [notice, setNotice] = useState("");
+  const [panel, setPanel] = useState<ActionPanel | null>(null);
   const [scrollTopVisible, setScrollTopVisible] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -278,8 +398,15 @@ export default function FigmaPageShell({ children, designWidth = 1421, page }: F
     if (!root || !stage) return;
 
     const updateScale = () => {
-      const shouldScale = window.innerWidth < 900 || page === "home";
-      const scale = shouldScale ? root.clientWidth / designWidth : 1;
+      const rootWidth = root.clientWidth || window.innerWidth;
+      const isFullFrame = designWidth > 900;
+      const shouldScale = isFullFrame || rootWidth < designWidth;
+      const scale = shouldScale
+        ? isFullFrame
+          ? rootWidth / designWidth
+          : Math.min(1, rootWidth / designWidth)
+        : 1;
+
       root.style.setProperty("--figma-scale", String(scale));
       root.style.setProperty("--figma-design-width", `${designWidth}px`);
       setStageHeight(shouldScale ? Math.ceil(stage.scrollHeight * scale) : undefined);
@@ -303,6 +430,7 @@ export default function FigmaPageShell({ children, designWidth = 1421, page }: F
     if (!root) return;
 
     hydrateInteractiveTargets(root);
+    hydrateToggleTargets(root);
     hideExportedScrollTopButtons(root);
     hydrateNativeInputs(root, search => {
       setQuery(search);
@@ -311,30 +439,133 @@ export default function FigmaPageShell({ children, designWidth = 1421, page }: F
     updateCartBadge(root, totalItems);
   }, [location.pathname, totalItems, navigate]);
 
+  const activateSource = (source: HTMLElement | null | undefined, exclusive = true) => {
+    if (!source) return;
+
+    const group = source.dataset.figmaOptionGroup;
+    if (exclusive && group) {
+      rootRef.current?.querySelectorAll<HTMLElement>("[data-figma-option-group]").forEach(element => {
+        if (element.dataset.figmaOptionGroup === group) {
+          element.dataset.figmaActive = "false";
+        }
+      });
+    }
+
+    source.dataset.figmaActive = exclusive ? "true" : String(source.dataset.figmaActive !== "true");
+  };
+
   const runAction = (action: FigmaAction, source?: HTMLElement | null) => {
     const productId = Number(source?.dataset.productId) || 1;
+    const product = products[productId - 1] ?? products[0];
+    const option = source?.dataset.figmaOption || (source ? getElementText(source) : "");
 
-    if (action === "home") navigate("/");
-    if (action === "shop") navigate("/products");
-    if (action === "product") navigate(`/product/${productId}`);
-    if (action === "about") navigate("/about-us");
-    if (action === "contact") navigate("/contact");
-    if (action === "cart") navigate("/cart");
-    if (action === "account") navigate("/account");
-    if (action === "login") navigate("/login");
-    if (action === "register") navigate("/register");
-    if (action === "search") setSearchOpen(true);
-    if (action === "checkout") navigate("/checkout");
+    if (action === "home") return navigate("/");
+    if (action === "shop") return navigate("/products");
+    if (action === "category") return navigate(`/products?category=${encodeURIComponent(option || "All")}`);
+    if (action === "product") return navigate(`/product/${productId}`);
+    if (action === "about") return navigate("/about-us");
+    if (action === "contact") return navigate("/contact");
+    if (action === "cart") return navigate("/cart");
+    if (action === "account") return navigate("/account");
+    if (action === "checkout") return navigate("/checkout");
+
+    if (action === "login") {
+      if (page === "login") {
+        setNotice("Signed in");
+        return navigate("/account");
+      }
+      return navigate("/login");
+    }
+
+    if (action === "register") {
+      if (page === "register") {
+        setNotice("Account created");
+        return navigate("/account");
+      }
+      return navigate("/register");
+    }
+
+    if (action === "search") {
+      setSearchOpen(true);
+      return;
+    }
 
     if (action === "add-cart") {
-      addItem(products[productId - 1] ?? products[0]);
+      addItem(product);
       setNotice("Added to cart");
+      return;
+    }
+
+    if (action === "buy-now") {
+      addItem(product);
+      setNotice("Added for checkout");
+      navigate("/checkout");
+      return;
     }
 
     if (action === "place-order") {
       clearCart();
       setNotice("Order placed");
       navigate("/checkout/success");
+      return;
+    }
+
+    if (action === "option") {
+      activateSource(source);
+      setNotice(`${source?.dataset.figmaOptionGroup ?? "Option"} ${option} selected`);
+      return;
+    }
+
+    if (action === "filter-toggle") {
+      activateSource(source, false);
+      setNotice("Filter updated");
+      return;
+    }
+
+    if (action === "tab") {
+      activateSource(source);
+      setNotice(`${option || "Product"} tab active`);
+      return;
+    }
+
+    if (action === "compare") {
+      setPanel({
+        body: `${product.name} is ready to compare with your saved products. Add more products from the shop page to build a shortlist.`,
+        mode: "compare",
+        title: "Compare Products",
+      });
+      return;
+    }
+
+    if (action === "question") {
+      setPanel({
+        body: "Send a quick product question and the store team will follow up.",
+        mode: "question",
+        title: "Ask a Question",
+      });
+      return;
+    }
+
+    if (action === "share") {
+      if (navigator.clipboard) {
+        void navigator.clipboard.writeText(window.location.href).then(
+          () => setNotice("Product link copied"),
+          () => setNotice("Share link ready"),
+        );
+      } else {
+        setNotice("Share link ready");
+      }
+      return;
+    }
+
+    if (action === "contact-submit") {
+      setNotice("Message sent");
+      return;
+    }
+
+    if (action === "newsletter") {
+      setNotice("Subscribed");
+      return;
     }
 
     if (action === "coupon") setNotice("Coupon updated");
@@ -412,6 +643,38 @@ export default function FigmaPageShell({ children, designWidth = 1421, page }: F
       ) : null}
 
       {notice ? <div className="figma-toast">{notice}</div> : null}
+
+      {panel ? (
+        <section
+          aria-modal="true"
+          className="figma-action-panel"
+          onClick={event => event.stopPropagation()}
+          role="dialog"
+        >
+          <button aria-label="Close panel" className="figma-action-panel__close" onClick={() => setPanel(null)} type="button">
+            x
+          </button>
+          <h2>{panel.title}</h2>
+          <p>{panel.body}</p>
+          {panel.mode === "question" ? (
+            <form
+              onSubmit={event => {
+                event.preventDefault();
+                setPanel(null);
+                setNotice("Question sent");
+              }}
+            >
+              <input aria-label="Your email" placeholder="Email" type="email" />
+              <textarea aria-label="Your question" placeholder="Question" />
+              <button type="submit">Send</button>
+            </form>
+          ) : (
+            <button onClick={() => setPanel(null)} type="button">
+              Continue
+            </button>
+          )}
+        </section>
+      ) : null}
 
       <button
         aria-label="Back to top"
