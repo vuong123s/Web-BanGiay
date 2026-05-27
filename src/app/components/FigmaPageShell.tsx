@@ -24,6 +24,7 @@ type FigmaAction =
   | "shop"
   | "product"
   | "category"
+  | "blog"
   | "about"
   | "contact"
   | "cart"
@@ -86,7 +87,8 @@ function findActionFromText(text: string): FigmaAction | null {
   if (text === "HOME") return "home";
   if (text === "SHOP") return "shop";
   if (text === "PRODUCT") return "product";
-  if (text === "BLOG" || text.includes("ABOUT US")) return "about";
+  if (text === "BLOG" || text.includes("OUR BLOG")) return "blog";
+  if (text.includes("ABOUT US")) return "about";
   if (text.includes("CONTACT US") || text === "CONTACT") return "contact";
   if (text.includes("MY ACCOUNT")) return "account";
   if (text === "LOGIN" || text === "SIGN IN") return "login";
@@ -463,6 +465,7 @@ export default function FigmaPageShell({ children, designWidth = 1421, page }: F
     if (action === "shop") return navigate("/products");
     if (action === "category") return navigate(`/products?category=${encodeURIComponent(option || "All")}`);
     if (action === "product") return navigate(`/product/${productId}`);
+    if (action === "blog") return navigate("/blog");
     if (action === "about") return navigate("/about-us");
     if (action === "contact") return navigate("/contact");
     if (action === "cart") return navigate("/cart");

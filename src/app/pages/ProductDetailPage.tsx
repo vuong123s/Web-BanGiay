@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { ArrowRight, Check, Heart, Minus, Plus, RotateCcw, ShieldCheck, ShoppingBag, Star, Truck } from "lucide-react";
 
 import { useCart } from "../context/CartContext";
@@ -10,6 +10,7 @@ export default function ProductDetailPage() {
   const product = getProductById(id);
   const related = products.filter(item => item.id !== product.id).slice(0, 3);
   const { addItem, openCart } = useCart();
+  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(product.image);
   const [selectedSize, setSelectedSize] = useState(product.sizes[1] ?? product.sizes[0]);
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
@@ -31,16 +32,25 @@ export default function ProductDetailPage() {
     openCart();
   };
 
+  const handleBuyNow = () => {
+    addItem(product, {
+      size: selectedSize,
+      color: selectedColor,
+      quantity,
+    });
+    navigate("/checkout");
+  };
+
   return (
     <div className="bg-white text-[#111]">
-      <section className="mx-auto grid max-w-[1320px] gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
-        <div className="grid gap-4 sm:grid-cols-[96px_1fr]">
-          <div className="order-2 flex gap-3 sm:order-1 sm:flex-col">
-            {[product.image, product.hover].map(image => (
+      <section className="mx-auto grid max-w-[1320px] min-w-0 gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+        <div className="grid min-w-0 gap-4 sm:grid-cols-[96px_1fr]">
+          <div className="order-2 flex min-w-0 gap-3 overflow-x-auto pb-1 sm:order-1 sm:flex-col sm:overflow-visible sm:pb-0">
+            {[product.image, product.hover, ...related.map(item => item.image)].slice(0, 5).map(image => (
               <button
                 key={image}
                 onClick={() => setSelectedImage(image)}
-                className={`aspect-square overflow-hidden rounded-[8px] border bg-[#f6f6f6] p-2 ${
+                className={`aspect-square w-20 shrink-0 overflow-hidden rounded-[8px] border bg-[#f6f6f6] p-2 sm:w-auto ${
                   selectedImage === image ? "border-black" : "border-black/10"
                 }`}
               >
@@ -48,7 +58,7 @@ export default function ProductDetailPage() {
               </button>
             ))}
           </div>
-          <div className="order-1 overflow-hidden rounded-[8px] bg-[#f6f6f6] sm:order-2">
+          <div className="order-1 min-w-0 overflow-hidden rounded-[8px] bg-[#f6f6f6] sm:order-2">
             <div className="relative aspect-square">
               <span className="absolute left-5 top-5 rounded-full bg-black px-4 py-2 text-xs font-black uppercase text-[#61ff00]">
                 {product.badge}
@@ -58,9 +68,9 @@ export default function ProductDetailPage() {
           </div>
         </div>
 
-        <div className="lg:pt-6">
+        <div className="min-w-0 lg:pt-6">
           <p className="text-sm font-black uppercase text-[#0b8f24]">Home / {product.category}</p>
-          <h1 className="mt-4 font-['Oswald',sans-serif] text-5xl font-black uppercase leading-none sm:text-6xl">
+          <h1 className="mt-4 break-words font-['Oswald',sans-serif] text-5xl font-black uppercase leading-none sm:text-6xl">
             {product.name}
           </h1>
           <div className="mt-5 flex flex-wrap items-center gap-4">
@@ -76,7 +86,7 @@ export default function ProductDetailPage() {
           </div>
           <p className="mt-6 text-lg leading-8 text-[#555]">{product.description}</p>
 
-          <div className="mt-7 flex items-end gap-4">
+          <div className="mt-7 flex flex-wrap items-end gap-4">
             <p className="text-3xl font-black">{product.price}</p>
             <p className="pb-1 text-lg text-[#999] line-through">{product.oldPrice}</p>
           </div>
@@ -108,7 +118,7 @@ export default function ProductDetailPage() {
                 <p className="text-sm font-black uppercase">Size</p>
                 <button className="text-sm font-bold underline">Size guide</button>
               </div>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid min-w-0 grid-cols-5 gap-2">
                 {product.sizes.map(size => (
                   <button
                     key={size}
@@ -142,10 +152,21 @@ export default function ProductDetailPage() {
                 Add to cart
                 <ShoppingBag size={18} />
               </button>
+              <button
+                type="button"
+                onClick={handleBuyNow}
+                className="inline-flex h-14 flex-1 items-center justify-center gap-3 rounded-[6px] bg-[#61ff00] px-7 text-sm font-black uppercase text-black transition hover:bg-black hover:text-white"
+              >
+                Buy now
+                <ArrowRight size={18} />
+              </button>
               <button className="grid h-14 w-full place-items-center rounded-[6px] border border-black/10 hover:border-black sm:w-14" aria-label="Add to wishlist">
                 <Heart size={19} />
               </button>
             </div>
+            <p className="text-sm font-bold text-[#666]">
+              Selected: size {selectedSize}, quantity {quantity}
+            </p>
           </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">

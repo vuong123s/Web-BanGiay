@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { Link } from "react-router";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router";
 import { ArrowRight, Filter, Heart, Search, ShoppingBag, SlidersHorizontal, Star, X } from "lucide-react";
 
 import { useCart } from "../context/CartContext";
@@ -9,10 +9,16 @@ type SortMode = "featured" | "price-low" | "price-high" | "rating";
 type PriceRange = "all" | "under-2m" | "2m-3m" | "over-3m";
 
 const collectionCategoryMap: Record<string, string[]> = {
+  Kid: ["Daily"],
+  Kids: ["Daily"],
   Lifestyle: ["Lifestyle", "Daily", "Streetwear"],
+  Men: ["Basketball", "Training", "Streetwear"],
   Running: ["Training"],
+  "Running Shoes": ["Training"],
   Court: ["Basketball"],
   Outdoor: ["Outdoor"],
+  Skate: ["Daily", "Streetwear"],
+  Sneakers: ["Lifestyle", "Streetwear", "Daily"],
 };
 
 const priceRanges: Array<{ id: PriceRange; label: string; matches: (price: number) => boolean }> = [
@@ -24,11 +30,30 @@ const priceRanges: Array<{ id: PriceRange; label: string; matches: (price: numbe
 
 export default function ProductCategoryPage() {
   const { addItem, openCart } = useCart();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [sortMode, setSortMode] = useState<SortMode>("featured");
   const [priceRange, setPriceRange] = useState<PriceRange>("all");
+
+  useEffect(() => {
+    const querySearch = searchParams.get("search") ?? "";
+    const queryCategory = searchParams.get("category");
+
+    setSearch(querySearch);
+    if (!queryCategory) {
+      setSelectedCategories([]);
+      return;
+    }
+
+    const normalizedCategory = queryCategory
+      .split(" ")
+      .map(word => `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()}`)
+      .join(" ");
+    const linkedCategories = collectionCategoryMap[normalizedCategory] ?? [normalizedCategory];
+    setSelectedCategories(linkedCategories.filter(category => productCategories.includes(category)));
+  }, [searchParams]);
 
   const toggleCategory = (category: string) => {
     setSelectedCategories(currentCategories =>
@@ -65,6 +90,7 @@ export default function ProductCategoryPage() {
     setSelectedSizes([]);
     setSortMode("featured");
     setPriceRange("all");
+    setSearchParams({});
   };
 
   const filteredProducts = useMemo(() => {
