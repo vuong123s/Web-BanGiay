@@ -16,6 +16,7 @@ import imgOliviaReynolds from "./57f952276db0c39e2de2bf5b9c0745afb90acfad.png";
 import imgAboutStore1Avif from "./68c0c899032b91340d1216b2f5c3ab08d01af124.png";
 import imgAboutStore2Avif from "./6fa362f70c65e079f6369557f3bbdca2f603fc59.png";
 import imgAboutStore3Avif from "./282aa82fa0ab4cb97e712380c198d87e2ff950d4.png";
+import { products } from "../../app/data/shopData";
 import imgImageContact1Png from "./c2000d94d8e5d7dd1fac8c081b9ad2c8a35297d1.png";
 import imgFigure from "./f6a7586ab049f7e8f087fb60cf77c048db40a1e4.png";
 import imgImageContact3Png from "./9090d63ed0f5181223c0085f89969a453671ce1d.png";
@@ -108,7 +109,8 @@ function Heading1() {
   return (
     <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="Heading 2">
       <div className="capitalize flex flex-col font-['Oswald:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#222] text-[40px] text-center whitespace-nowrap">
-        <p className="leading-[60px]">Our Mission? We Bring Harmony And Practicality Into Great Designs For Everyone</p>
+        <p className="leading-[55px] mb-0">Our Mission? We Bring Harmony And</p>
+        <p className="leading-[55px]">Practicality Into Great Designs For Everyone</p>
       </div>
     </div>
   );
@@ -116,7 +118,7 @@ function Heading1() {
 
 function Container6() {
   return (
-    <div className="content-stretch flex flex-col h-[60px] items-start relative shrink-0 w-full" data-name="Container">
+    <div className="content-stretch flex flex-col h-[110px] items-start relative shrink-0 w-full" data-name="Container">
       <Heading1 />
     </div>
   );
@@ -137,7 +139,7 @@ function Container3() {
 
 function Container2() {
   return (
-    <div className="content-stretch flex h-[114px] items-start justify-center max-w-[1410px] relative shrink-0 w-full" data-name="Container">
+    <div className="content-stretch flex h-[164px] items-start justify-center max-w-[1410px] relative shrink-0 w-full" data-name="Container">
       <Container3 />
     </div>
   );
@@ -295,9 +297,10 @@ function Section1() {
 function Container21() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Container">
-      <div className="flex flex-col font-['Jost:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#505157] text-[14px] w-full">
-        <p className="leading-[25px] mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam consequat ut ex vel finibus. Nunc eget molestie purus. Fusce imperdiet pulvinar est, eget fermentum nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices</p>
-        <p className="leading-[25px]">posuere cubilia curae</p>
+      <div className="flex flex-col font-['Jost:Regular',sans-serif] font-normal relative shrink-0 text-[#505157] text-[14px] w-full">
+        <p className="leading-[25px] mb-0">We build footwear experiences around comfort, clarity, and everyday movement.</p>
+        <p className="leading-[25px] mb-0">Every product story is arranged so customers can compare materials, fit, and style without visual clutter.</p>
+        <p className="leading-[25px]">The result is a practical shopping flow that still feels premium and energetic.</p>
       </div>
     </div>
   );
@@ -313,7 +316,7 @@ function Container20() {
 
 function Margin1() {
   return (
-    <div className="content-stretch flex flex-col h-[65px] items-start justify-center pb-[15px] relative shrink-0 w-full" data-name="Margin">
+    <div className="content-stretch flex flex-col h-[100px] items-start justify-center pb-[15px] relative shrink-0 w-full" data-name="Margin">
       <Container20 />
     </div>
   );
@@ -322,10 +325,10 @@ function Margin1() {
 function Container23() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Container">
-      <div className="flex flex-col font-['Jost:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#505157] text-[14px] w-full">
-        <p className="leading-[24px] mb-0">Maecenas congue metus id turpis iaculis mattis. Sed pellentesque id arcu id scelerisque. Ut ullamcorper rutrum justo, at blandit eros maximus ut. Integer non tincidunt justo, rhoncus Aenean venenatis sed purus ac sollicitudin. Nulla</p>
-        <p className="leading-[24px] mb-0">mauris risus, commodo et luctus rutrum, lobortis sed mauris. Integer congue, sem elementum varius tristique, erat nulla rutrum risus, a imperdiet nulla lorem fermentum erat. Pellentesque elementum justo at velit fringilla, eu feugiat erat</p>
-        <p className="leading-[24px]">fermentum. Vivamus libero dolor, porta eget vehicula eu, iaculis id lacus. Sed interdum convallis sapien, eget faucibus sapien. Proin hendrerit lacus turpis.</p>
+      <div className="flex flex-col font-['Jost:Regular',sans-serif] font-normal relative shrink-0 text-[#505157] text-[14px] w-full">
+        <p className="leading-[24px] mb-0">Our team keeps the layout focused: clear hero messaging, balanced product cards, and a detail page that lets the shoe imagery lead.</p>
+        <p className="leading-[24px] mb-0">Filters, carts, and product options are built to respond instantly while preserving the clean MateShoes visual rhythm.</p>
+        <p className="leading-[24px]">This makes the store feel closer to a real commerce site instead of a static design export.</p>
       </div>
     </div>
   );
@@ -343,7 +346,7 @@ function Container22() {
 
 function Margin2() {
   return (
-    <div className="content-stretch flex flex-col h-[96px] items-start justify-center pb-[15px] relative shrink-0 w-full" data-name="Margin">
+    <div className="content-stretch flex flex-col h-[125px] items-start justify-center pb-[15px] relative shrink-0 w-full" data-name="Margin">
       <Container22 />
     </div>
   );
@@ -352,9 +355,9 @@ function Margin2() {
 function Container25() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Container">
-      <div className="flex flex-col font-['Jost:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#505157] text-[14px] w-full">
-        <p className="leading-[24px] mb-0">Maecenas congue metus id turpis iaculis mattis. Sed pellentesque id arcu id scelerisque. Ut ullamcorper rutrum justo, at blandit eros maximus ut. Integer non tincidunt justo, rhoncus Aenean venenatis sed purus ac sollicitudin. Nulla</p>
-        <p className="leading-[24px]">mauris risus, commodo et luctus rutrum, lobortis sed mauris.</p>
+      <div className="flex flex-col font-['Jost:Regular',sans-serif] font-normal relative shrink-0 text-[#505157] text-[14px] w-full">
+        <p className="leading-[24px] mb-0">Spacing, typography, and media are tuned together so each section reads naturally.</p>
+        <p className="leading-[24px]">The page keeps the Figma mood while behaving like a finished store.</p>
       </div>
     </div>
   );
@@ -362,7 +365,7 @@ function Container25() {
 
 function Container24() {
   return (
-    <div className="content-stretch flex flex-col h-[57px] items-start pt-[9px] relative shrink-0 w-full" data-name="Container">
+    <div className="content-stretch flex flex-col h-[78px] items-start pt-[9px] relative shrink-0 w-full" data-name="Container">
       <Container25 />
     </div>
   );
@@ -423,7 +426,7 @@ function AboutUsVideo5Avif() {
   return (
     <div className="aspect-[840/532] relative shrink-0 w-full" data-name="about-us-video5.avif">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute left-0 max-w-none size-full top-0" src={imgAboutUsVideo5Avif} />
+        <img alt="" className="absolute inset-0 bg-[#f6f6f6]" src={products[0].image} style={{ height: "100%", objectFit: "contain", padding: 42, width: "100%" }} />
       </div>
     </div>
   );
@@ -489,7 +492,7 @@ function AboutUsVideo1Avif() {
   return (
     <div className="aspect-[840/532] relative shrink-0 w-full" data-name="about-us-video1.avif">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute left-0 max-w-none size-full top-0" src={imgAboutUsVideo1Avif} />
+        <img alt="" className="absolute inset-0 bg-[#f6f6f6]" src={products[2].image} style={{ height: "100%", objectFit: "contain", padding: 42, width: "100%" }} />
       </div>
     </div>
   );
@@ -563,7 +566,7 @@ function AboutUsVideo2Avif() {
   return (
     <div className="aspect-[840/532] relative shrink-0 w-full" data-name="about-us-video2.avif">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute left-0 max-w-none size-full top-0" src={imgAboutUsVideo2Avif} />
+        <img alt="" className="absolute inset-0 bg-[#f6f6f6]" src={products[3].image} style={{ height: "100%", objectFit: "contain", padding: 42, width: "100%" }} />
       </div>
     </div>
   );
@@ -790,8 +793,8 @@ function Container63() {
   return (
     <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="Container">
       <div className="flex flex-col font-['Jost:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#505157] text-[14px] text-center whitespace-nowrap">
-        <p className="leading-[24px] mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam consequat</p>
-        <p className="leading-[24px]">ut ex vel finibus. Nunc eget molestie purus.</p>
+        <p className="leading-[24px] mb-0">Select a store look that matches your footwear brand.</p>
+        <p className="leading-[24px]">Keep layouts clean, premium, and easy to scan.</p>
       </div>
     </div>
   );
@@ -870,8 +873,8 @@ function Container68() {
   return (
     <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="Container">
       <div className="flex flex-col font-['Jost:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#505157] text-[14px] text-center whitespace-nowrap">
-        <p className="leading-[24px] mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam consequat</p>
-        <p className="leading-[24px]">ut ex vel finibus. Nunc eget molestie purus.</p>
+        <p className="leading-[24px] mb-0">Upload shoe photos, prices, colors, sizes, and stock.</p>
+        <p className="leading-[24px]">Everything stays organized for a real shop flow.</p>
       </div>
     </div>
   );
@@ -957,8 +960,8 @@ function Container73() {
   return (
     <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="Container">
       <div className="flex flex-col font-['Jost:Regular',sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#505157] text-[14px] text-center whitespace-nowrap">
-        <p className="leading-[24px] mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam consequat</p>
-        <p className="leading-[24px]">ut ex vel finibus. Nunc eget molestie purus.</p>
+        <p className="leading-[24px] mb-0">Launch product pages with cart, checkout, and account.</p>
+        <p className="leading-[24px]">Customers can browse, filter, and buy with less friction.</p>
       </div>
     </div>
   );

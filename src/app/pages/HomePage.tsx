@@ -51,6 +51,7 @@ const navItems = [
   { label: "Home", to: "/" },
   { label: "Shop", to: "/products" },
   { label: "Product", to: "/product/1" },
+  { label: "Blog", to: "/blog" },
   { label: "About", to: "/about-us" },
   { label: "Contact", to: "/contact" },
 ];
@@ -193,7 +194,7 @@ function HomeHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-screen border-b border-black/10 bg-white/90 backdrop-blur-xl">
-      <div className="relative mx-auto flex h-[76px] w-full max-w-[1320px] items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto flex h-[76px] w-full max-w-[1140px] items-center justify-between px-4 sm:px-6 lg:px-8">
         <button
           type="button"
           aria-label="Menu"
@@ -205,7 +206,7 @@ function HomeHeader() {
         </button>
 
         <nav className="hidden items-center gap-8 text-[13px] font-bold uppercase text-[#6d6d6d] lg:flex">
-          {navItems.slice(0, 4).map(item => (
+          {navItems.slice(0, 5).map(item => (
             <Link key={item.label} to={item.to} className="transition hover:text-black">
               {item.label}
             </Link>
@@ -406,7 +407,7 @@ export default function HomePage() {
         <img src={heroBackground} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-white/35" />
 
-        <div className="relative mx-auto grid max-w-[1320px] gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-16">
+        <div className="relative mx-auto grid max-w-[1140px] gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-16">
           <div className="relative z-20 flex flex-col justify-center">
             <div className="mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-black/10 bg-white/75 px-4 py-2 text-xs font-black uppercase text-black shadow-sm">
               <Zap size={15} className="text-[#0db22a]" />
@@ -483,7 +484,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1320px] px-4 py-14 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[1140px] px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-black uppercase text-[#0b8f24]">Shop by mood</p>
@@ -521,7 +522,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1320px] gap-5 px-4 pb-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+      <section className="mx-auto grid max-w-[1140px] gap-5 px-4 pb-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
         <Link to="/products" className="group relative min-h-[390px] overflow-hidden rounded-[8px] bg-black text-white">
           <img src={bannerStreet} alt="Sneaker streetwear collection" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
           <div className="absolute inset-0 bg-black/15" />
@@ -553,7 +554,7 @@ export default function HomePage() {
       </section>
 
       <section className="bg-[#f6f6f6] py-16">
-        <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1140px] px-4 sm:px-6 lg:px-8">
           <div className="mb-9 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <p className="text-sm font-black uppercase text-[#0b8f24]">Best seller</p>
@@ -578,7 +579,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1320px] gap-5 px-4 py-16 sm:px-6 lg:grid-cols-3 lg:px-8">
+      <section className="mx-auto grid max-w-[1140px] gap-5 px-4 py-16 sm:px-6 lg:grid-cols-3 lg:px-8">
         {services.map(service => {
           const Icon = service.icon;
           return (
@@ -596,7 +597,7 @@ export default function HomePage() {
       </section>
 
       <section className="border-y border-black/10 bg-black py-16 text-white">
-        <div className="mx-auto grid max-w-[1320px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
+        <div className="mx-auto grid max-w-[1140px] gap-8 px-4 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
           <div>
             <p className="text-sm font-black uppercase text-[#61ff00]">Mate stories</p>
             <h2 className="mt-2 font-['Oswald',sans-serif] text-4xl font-black uppercase sm:text-5xl">
@@ -620,7 +621,7 @@ export default function HomePage() {
       </section>
 
       <footer className="bg-white">
-        <div className="mx-auto grid max-w-[1320px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_1.2fr_1fr] lg:px-8">
+        <div className="mx-auto grid max-w-[1140px] gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_1.2fr_1fr] lg:px-8">
           <div>
             <img src={logoMate} alt="Mate Shoes" className="h-6 w-auto" />
             <p className="mt-5 max-w-xs text-sm leading-7 text-[#626262]">
@@ -651,3 +652,4 @@ export default function HomePage() {
     </div>
   );
 }
+

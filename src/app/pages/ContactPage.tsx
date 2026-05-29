@@ -42,7 +42,7 @@ export default function ContactPage() {
   return (
     <div className="bg-white text-[#111]">
       <section className="border-y border-black/10 bg-[#f6f6f6]">
-        <div className="mx-auto max-w-[1320px] px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1140px] px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-black uppercase text-[#0b8f24]">Contact</p>
           <h1 className="mt-4 font-['Oswald',sans-serif] text-5xl font-black uppercase leading-none sm:text-7xl">
             We are here to help
@@ -53,7 +53,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1320px] gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+      <section className="mx-auto grid max-w-[1140px] gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
         <div className="space-y-4">
           {[
             { icon: Phone, title: "Phone", text: "+84 900 123 456" },
@@ -140,7 +140,7 @@ export default function ContactPage() {
         </form>
       </section>
 
-      <section className="mx-auto max-w-[1320px] px-4 pb-16 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[1140px] px-4 pb-16 sm:px-6 lg:px-8">
         <div className="rounded-[8px] border border-black/10 bg-black p-8 text-white sm:flex sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-black uppercase text-[#61ff00]">Need shoes now?</p>
@@ -155,3 +155,4 @@ export default function ContactPage() {
     </div>
   );
 }
+

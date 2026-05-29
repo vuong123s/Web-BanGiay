@@ -10,7 +10,7 @@ export default function CartPage() {
   return (
     <div className="bg-white text-[#111]">
       <section className="border-y border-black/10 bg-[#f6f6f6]">
-        <div className="mx-auto max-w-[1320px] px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1140px] px-4 py-14 sm:px-6 lg:px-8">
           <p className="text-sm font-black uppercase text-[#0b8f24]">Home / Cart</p>
           <h1 className="mt-4 font-['Oswald',sans-serif] text-5xl font-black uppercase sm:text-7xl">
             Shopping cart
@@ -33,7 +33,7 @@ export default function CartPage() {
           </Link>
         </section>
       ) : (
-        <section className="mx-auto grid max-w-[1320px] gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1fr_360px] lg:px-8">
+        <section className="mx-auto grid max-w-[1140px] gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1fr_360px] lg:px-8">
           <div className="space-y-4">
             {detailedItems.map(item => (
               <div key={item.id} className="grid gap-4 rounded-[8px] border border-black/10 p-4 sm:grid-cols-[120px_1fr_auto] sm:items-center">
@@ -115,3 +115,4 @@ export default function CartPage() {
     </div>
   );
 }
+

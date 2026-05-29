@@ -8,7 +8,7 @@ const navItems = [
   { label: "Shop", to: "/products", match: "/products" },
   { label: "Product", to: "/product/1", match: "/product" },
   { label: "Blog", to: "/blog", match: "/blog" },
-  { label: "About", to: "/about-us", match: "/about-us" },
+  { label: "About", to: "/about-us", match: ["/about-us", "/about", "/aboutus"] },
   { label: "Contact", to: "/contact", match: "/contact" },
 ];
 
@@ -27,7 +27,7 @@ export default function Navigation() {
 
   return (
     <header className="bg-white">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1140px] px-6 sm:px-8">
         <div className="grid grid-cols-[1fr_auto_1fr] items-center py-6">
           <div />
 
@@ -48,6 +48,7 @@ export default function Navigation() {
               <Search size={18} />
             </button>
             <Link
+              onClick={() => setSearchOpen(false)}
               to="/account"
               className="relative flex items-center justify-center size-11 rounded-full bg-[#f1f1f1] text-[#222] hover:bg-[#e7e7e7]"
               aria-label="Account"
@@ -61,7 +62,7 @@ export default function Navigation() {
               aria-label="Cart"
             >
               <ShoppingCart size={18} />
-              <span className="absolute right-1 top-1 flex size-4 items-center justify-center rounded-full bg-black text-[10px] font-semibold text-white">
+              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-black px-1 text-[10px] font-black leading-none text-white">
                 {totalItems}
               </span>
             </button>
@@ -70,12 +71,13 @@ export default function Navigation() {
       </div>
 
       <div className="overflow-x-auto">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1140px] px-6 sm:px-8">
           <nav className="flex min-w-max items-center justify-start gap-7 py-3 text-[12px] font-semibold uppercase tracking-[0.2em] text-[#777] sm:justify-center sm:gap-10">
             {navItems.map(item => {
-              const isActive = item.match === "/"
+              const matches = Array.isArray(item.match) ? item.match : [item.match];
+              const isActive = matches.includes("/")
                 ? location.pathname === "/"
-                : location.pathname.startsWith(item.match);
+                : matches.some(match => location.pathname.startsWith(match));
 
               return (
                 <Link
@@ -134,3 +136,4 @@ export default function Navigation() {
     </header>
   );
 }
+

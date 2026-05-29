@@ -1,15 +1,16 @@
 import { createBrowserRouter } from "react-router";
 
 import FigmaPageShell from "./components/FigmaPageShell";
+import Layout from "./components/Layout";
+import ProductCategoryPage from "./pages/ProductCategoryPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 import DangKi from "../imports/DangKi/DangKi";
 import DangNhap from "../imports/DangNhập/DangNhập";
 import ThanhToanThanhCong from "../imports/ThanhToanThanhCong/ThanhToanThanhCong";
 import Trang404 from "../imports/Trang404/Trang404";
 import TrangChu from "../imports/TrangChủ/TrangChủ";
-import TrangDanhMucSanPham from "../imports/TrangDanhMụcSảnPhẩm/TrangDanhMụcSảnPhẩm";
 import TrangGioHang from "../imports/TrangGiỏHang/TrangGiỏHang";
 import TrangLienHe from "../imports/TrangLienHệ/TrangLienHệ";
-import TrangSanPham from "../imports/TrangSảnPhẩm/TrangSảnPhẩm";
 import TrangSanPhamAlt from "../imports/TrangSảnPhẩm-1/TrangSảnPhẩm-4-1553";
 import TrangSanPhamVariant from "../imports/TrangSảnPhẩm-1-1/TrangSảnPhẩm-4-3442";
 import TrangThanhToan from "../imports/TrangThanhToan/TrangThanhToan";
@@ -24,6 +25,10 @@ function figmaPage(page: string, element: JSX.Element, designWidth?: number) {
   );
 }
 
+function appPage(element: JSX.Element) {
+  return <Layout>{element}</Layout>;
+}
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -31,15 +36,15 @@ export const router = createBrowserRouter([
   },
   {
     path: "/products",
-    element: figmaPage("products", <TrangDanhMucSanPham />),
+    element: appPage(<ProductCategoryPage />),
   },
   {
     path: "/product/:id",
-    element: figmaPage("product", <TrangSanPham />),
+    element: appPage(<ProductDetailPage />),
   },
   {
     path: "/blog",
-    element: figmaPage("blog", <TrangThongTin />),
+    element: figmaPage("blog", <TrangThongTin />, 1521),
   },
   {
     path: "/product-alt/:id",
@@ -63,23 +68,23 @@ export const router = createBrowserRouter([
   },
   {
     path: "/info",
-    element: figmaPage("info", <TrangThongTin />),
+    element: figmaPage("info", <TrangThongTin />, 1521),
   },
   {
     path: "/about-us",
-    element: figmaPage("about-us", <TrangThongTin />),
+    element: figmaPage("about-us", <TrangThongTin />, 1521),
   },
   {
     path: "/about",
-    element: figmaPage("about", <TrangThongTin />),
+    element: figmaPage("about", <TrangThongTin />, 1521),
   },
   {
     path: "/aboutus",
-    element: figmaPage("aboutus", <TrangThongTin />),
+    element: figmaPage("aboutus", <TrangThongTin />, 1521),
   },
   {
     path: "/contact",
-    element: figmaPage("contact", <TrangLienHe />),
+    element: figmaPage("contact", <TrangLienHe />, 1521),
   },
   {
     path: "/account",
@@ -98,3 +103,4 @@ export const router = createBrowserRouter([
     element: figmaPage("404", <Trang404 />),
   },
 ]);
+

@@ -17,7 +17,7 @@ export default function AccountPage() {
   return (
     <div className="bg-white text-[#111]">
       <section className="border-y border-black/10 bg-[#f6f6f6]">
-        <div className="mx-auto max-w-[1320px] px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1140px] px-4 py-14 sm:px-6 lg:px-8">
           <p className="text-sm font-black uppercase text-[#0b8f24]">My account</p>
           <h1 className="mt-4 font-['Oswald',sans-serif] text-5xl font-black uppercase sm:text-7xl">
             Account dashboard
@@ -25,7 +25,7 @@ export default function AccountPage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1320px] gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[280px_1fr] lg:px-8">
+      <section className="mx-auto grid max-w-[1140px] gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[280px_1fr] lg:px-8">
         <aside className="h-fit rounded-[8px] border border-black/10 p-4">
           {[
             { icon: User, label: "Profile" },
@@ -100,3 +100,4 @@ export default function AccountPage() {
     </div>
   );
 }
+

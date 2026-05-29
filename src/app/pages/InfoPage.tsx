@@ -7,7 +7,7 @@ export default function InfoPage() {
   return (
     <div className="bg-white text-[#111]">
       <section className="border-y border-black/10 bg-[#f6f6f6]">
-        <div className="mx-auto grid max-w-[1320px] gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+        <div className="mx-auto grid max-w-[1140px] gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <div>
             <p className="text-sm font-black uppercase text-[#0b8f24]">About Mate Shoes</p>
             <h1 className="mt-4 font-['Oswald',sans-serif] text-5xl font-black uppercase leading-none sm:text-7xl">
@@ -38,7 +38,7 @@ export default function InfoPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1320px] px-4 py-16 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[1140px] px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-5 sm:grid-cols-3">
           {[
             ["06", "Curated collections"],
@@ -54,7 +54,7 @@ export default function InfoPage() {
       </section>
 
       <section className="bg-black py-16 text-white">
-        <div className="mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1140px] px-4 sm:px-6 lg:px-8">
           <div className="mb-8 max-w-2xl">
             <p className="text-sm font-black uppercase text-[#61ff00]">What we care about</p>
             <h2 className="mt-2 font-['Oswald',sans-serif] text-4xl font-black uppercase sm:text-5xl">
@@ -80,7 +80,7 @@ export default function InfoPage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1320px] gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
+      <section className="mx-auto grid max-w-[1140px] gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
         <div>
           <p className="text-sm font-black uppercase text-[#0b8f24]">Journal</p>
           <h2 className="mt-2 font-['Oswald',sans-serif] text-4xl font-black uppercase">Guides from our team</h2>
@@ -104,14 +104,14 @@ export default function InfoPage() {
       </section>
 
       <section className="border-t border-black/10 py-10">
-        <div className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-center gap-10 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-[1140px] flex-wrap items-center justify-center gap-10 px-4 sm:px-6 lg:px-8">
           {brandImages.map((brand, index) => (
             <img key={index} src={brand} alt="" className="h-16 w-28 object-contain grayscale" />
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1320px] px-4 pb-16 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[1140px] px-4 pb-16 sm:px-6 lg:px-8">
         <div className="rounded-[8px] border border-black/10 bg-[#e8fff4] p-8 sm:flex sm:items-center sm:justify-between">
           <div>
             <div className="mb-3 inline-flex items-center gap-2 text-sm font-black uppercase text-[#0b8f24]">
@@ -129,3 +129,4 @@ export default function InfoPage() {
     </div>
   );
 }
+
